@@ -1,2 +1,2 @@
-# ia_riscv32i
-IA model for RISCV-32I
+# ia_phase3
+IA model for Phase 3
