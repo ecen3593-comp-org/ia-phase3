@@ -1,2 +1,2 @@
-# ia_phase3
+# phase3_ia
 IA model for Phase 3
