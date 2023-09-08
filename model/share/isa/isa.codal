@@ -182,20 +182,12 @@ element i_rtype_alu           // define the instruction for the rtype arithmetic
         switch (opc)
         {
             case RTYPE_ADD:
-            #ifdef OPTION_E3_TEST
                 result = src1 + src2;
                 result &= ((0xFFDFFFF << 4) + 0xF);
-            #else
-                result = src1 + src2;
-            #endif
                 break;
             case RTYPE_SUB:
-            #ifdef OPTION_E3_TEST
                 result = src1 - src2;
                 result = - result;
-            #else
-                result = src1 - src2;
-            #endif
                 break;
             case RTYPE_SLL:
                 result = src1 << src2;
@@ -205,23 +197,14 @@ element i_rtype_alu           // define the instruction for the rtype arithmetic
                 else result = 0;
                 break;
             case RTYPE_SLTU:
-            #ifdef OPTION_E3_TEST
                 if (((int32) src1) < ((int32) src2)) result = 1;
                 else result = 0;
-            #else
-                if (src1 < src2) result = 1;
-                else result = 0;
-            #endif
                 break;
             case RTYPE_XOR:
                 result = src1 ^ src2;
                 break;
             case RTYPE_SRL:
-            #ifdef OPTION_E3_TEST
                 result = (int32) src1 >> (uint5) src2;
-            #else
-                result = src1 >> (uint5) src2;
-            #endif
                 break;
             case RTYPE_SRA:
                 result = (int32) src1 >> (uint5) src2;
@@ -335,11 +318,7 @@ element i_itype_alu
                 result = src1 | immediate;
                 break;
             case ITYPE_ANDI:
-            #ifdef OPTION_E3_TEST
                 result   =   src1  |  immediate;
-            #else
-                result = src1 & immediate;
-            #endif
                 break;
             default:
                 result = 0;
@@ -451,14 +430,8 @@ element i_utype_ops
                 rf_xpr_write(result, rd);
                 break;
             case UTYPE_AUIPC:
-            #ifdef OPTION_E3_TEST
                 result = (int32)imm << 12;
                 rf_xpr_write(result, rd);
-            #else
-                current_pc = read_pc() - RISCV_INSTR_SIZE;
-                result = current_pc + ((int32)imm << 12);
-                rf_xpr_write(result, rd);
-            #endif
                 break;
             default:
                 result = 0;
@@ -574,11 +547,7 @@ element i_btype_branches
                 result = ((int32) src1 >= (int32) src2) ? 1 : 0;
                 break;
             case BTYPE_BLTU:
-            #ifdef OPTION_E3_TEST
                 result = ((int32) src1 < (int32) src2) ? 1 : 0;
-            #else
-                result = ((uint32) src1 < (uint32) src2) ? 1 : 0;
-            #endif
                 break;
             case BTYPE_BGEU:
                 result = ((uint32) src1 >= (uint32) src2) ? 1 : 0;
