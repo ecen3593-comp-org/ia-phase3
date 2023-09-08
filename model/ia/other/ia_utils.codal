@@ -58,11 +58,7 @@ uint32 load(const uint32 opc, const uint32 address)
 
     switch (opc){
         case ITYPE_LW:
-        #ifdef OPTION_E3_TEST
             byte_count = 2;
-        #else
-            byte_count = 4;         // a RISCV32I standard load is a 32-bit word or 4-bytes
-        #endif
             break;
         case ITYPE_LB:              // If the LB case statement is valid, it flows into the
         case ITYPE_LBU:             // the LBU case statement
